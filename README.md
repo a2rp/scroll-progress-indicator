@@ -1,3 +1,10 @@
+
+![image](https://github.com/a2rp/scroll-progress-indicator/assets/5670738/ca64f494-1bc7-43e1-83ea-d71637422ff2)
+
+![image](https://github.com/a2rp/scroll-progress-indicator/assets/5670738/695fb5b2-c4a0-4ad6-adef-9c73ab22f390)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
