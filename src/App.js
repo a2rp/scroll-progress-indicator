@@ -1,13 +1,7 @@
-import React from 'react'
-import ScrollProgressIndicator from './scrollProgressIndicator/ScrollProgressIndicator'
+import ScrollProgressIndicator from "./scrollProgressIndicator/ScrollProgressIndicator";
 
-const App = () => {
-    return (
-        <div>
-            <ScrollProgressIndicator />
-        </div>
-    )
+function App() {
+    return <ScrollProgressIndicator />;
 }
 
-export default App
-
+export default App;
