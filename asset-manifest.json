@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/scroll-progress-indicator/static/css/main.f7cb47a1.css",
-    "main.js": "/scroll-progress-indicator/static/js/main.9cc13107.js",
+    "main.js": "/scroll-progress-indicator/static/js/main.b0d6cad3.js",
     "index.html": "/scroll-progress-indicator/index.html",
     "main.f7cb47a1.css.map": "/scroll-progress-indicator/static/css/main.f7cb47a1.css.map",
-    "main.9cc13107.js.map": "/scroll-progress-indicator/static/js/main.9cc13107.js.map"
+    "main.b0d6cad3.js.map": "/scroll-progress-indicator/static/js/main.b0d6cad3.js.map"
   },
   "entrypoints": [
     "static/css/main.f7cb47a1.css",
-    "static/js/main.9cc13107.js"
+    "static/js/main.b0d6cad3.js"
   ]
 }
