@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiArrowUp, FiBookOpen, FiCoffee, FiDownload, FiGithub, FiGlobe, FiHeart, FiLinkedin, FiMail, FiMessageCircle, FiYoutube } from "react-icons/fi";
-import { FaFacebookF } from "react-icons/fa6";
+import { FaCodepen, FaFacebookF } from "react-icons/fa6";
 import { Button, CircularProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -11,7 +11,7 @@ const publicAsset = (name) => `${process.env.PUBLIC_URL || ""}/${name}`;
 const socialLinks = [
     { label: "Portfolio", href: "https://www.ashishranjan.net/", Icon: FiGlobe },
     { label: "GitHub", href: "https://github.com/a2rp", Icon: FiGithub },
-    { label: "CodePen", href: "https://codepen.io/ash1198", Icon: FiMessageCircle },
+    { label: "CodePen", href: "https://codepen.io/ash1198", Icon: FaCodepen },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/aashishranjan", Icon: FiLinkedin },
     { label: "Facebook", href: "https://www.facebook.com/theash.ashish/", Icon: FaFacebookF },
     { label: "YouTube", href: "https://www.youtube.com/@ashishranjan-ashz?sub_confirmation=1", Icon: FiYoutube },
