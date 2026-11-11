@@ -1,17 +1,17 @@
 # Scroll Progress Indicator
 
-A responsive React demo that fetches quotes and shows reading progress while the page is scrolled.
+A responsive reading demo that fetches quotes and shows reading progress while the page is scrolled.
 
 ## Features
 
 - Visible fixed progress bar with current percentage
-- Fetches demo quotes from DummyJSON
+- Fetches demo quotes from DummyJSON with visible error feedback
 - Responsive quote cards with loading and empty states
 - Fixed branded header, icon-only footer links, and scroll-to-top control
 
 ## Tech stack
 
-React, Create React App, JavaScript, Sass, Material UI, Axios, and react-icons.
+React, Vite, JavaScript, Sass, and react-icons. Quote data uses the browser Fetch API.
 
 ## Run locally
 
@@ -20,7 +20,7 @@ npm install
 npm start
 ```
 
-Create a production build with `npm run build`. Deploy with `npm run deploy`.
+Create a production build with `npm run build`. Check code with `npm run lint`. Deploy with `npm run deploy`.
 
 ## Live
 

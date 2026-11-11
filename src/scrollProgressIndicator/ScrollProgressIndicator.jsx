@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { FiArrowUp, FiBookOpen, FiCoffee, FiDownload, FiGithub, FiGlobe, FiHeart, FiLinkedin, FiMail, FiMessageCircle, FiYoutube } from "react-icons/fi";
 import { FaCodepen, FaFacebookF } from "react-icons/fa6";
-import { Button, CircularProgress } from "@mui/material";
-import { toast } from "react-toastify";
-import axios from "axios";
 import styles from "./styles.module.scss";
 
-const publicAsset = (name) => `${process.env.PUBLIC_URL || ""}/${name}`;
+const publicAsset = (name) => `${import.meta.env.BASE_URL}${name}`;
 
 const socialLinks = [
     { label: "Portfolio", href: "https://www.ashishranjan.net/", Icon: FiGlobe },
@@ -47,25 +44,38 @@ function ScrollProgressIndicator() {
     const [isLoading, setIsLoading] = useState(false);
     const [quotes, setQuotes] = useState([]);
     const [scrollPercent, setScrollPercent] = useState(0);
+    const [fetchError, setFetchError] = useState("");
 
     const fetchData = async () => {
         setIsLoading(true);
+        setFetchError("");
         try {
-            const response = await axios.get("https://dummyjson.com/quotes?skip=0&limit=1000");
-            setQuotes(response.data?.quotes || []);
+            const response = await fetch("https://dummyjson.com/quotes?skip=0&limit=1000");
+            if (!response.ok) throw new Error(`Quote service returned ${response.status}.`);
+            const data = await response.json();
+            if (!Array.isArray(data?.quotes)) throw new Error("Quote service returned an unexpected response.");
+            setQuotes(data.quotes);
         } catch (error) {
-            toast.error(error.message || "Unable to fetch quotes.");
+            setFetchError(error instanceof Error ? error.message : "Unable to fetch quotes.");
         } finally {
             setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        const updateScrollProgress = () => setScrollPercent(getScrollPercent());
+        let frameId = 0;
+        const updateScrollProgress = () => {
+            if (frameId) return;
+            frameId = window.requestAnimationFrame(() => {
+                frameId = 0;
+                setScrollPercent(getScrollPercent());
+            });
+        };
         updateScrollProgress();
         window.addEventListener("scroll", updateScrollProgress, { passive: true });
         window.addEventListener("resize", updateScrollProgress);
         return () => {
+            window.cancelAnimationFrame(frameId);
             window.removeEventListener("scroll", updateScrollProgress);
             window.removeEventListener("resize", updateScrollProgress);
         };
@@ -73,7 +83,7 @@ function ScrollProgressIndicator() {
 
     return (
         <div className={styles.page}>
-            <div className={styles.progressBar} aria-hidden="true">
+            <div className={styles.progressBar} role="progressbar" aria-label="Page scroll progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(scrollPercent)}>
                 <div className={styles.progressValue} style={{ width: `${scrollPercent}%` }} />
             </div>
 
@@ -95,7 +105,7 @@ function ScrollProgressIndicator() {
                             responsive progress bar that stays visible while you browse.
                         </p>
                     </div>
-                    <div className={styles.progressCard} aria-live="polite">
+                    <div className={styles.progressCard}>
                         <span className={styles.progressIcon}><FiDownload aria-hidden="true" /></span>
                         <strong>{scrollPercent.toFixed(0)}%</strong>
                         <span>page progress</span>
@@ -107,16 +117,12 @@ function ScrollProgressIndicator() {
                         <p className={styles.panelLabel}>DEMO CONTENT</p>
                         <h2>Fill the page with quotes</h2>
                         <p>Fetch a large set of quotes to create a realistic scrollable reading experience.</p>
+                        {fetchError && <p className={styles.fetchError} role="alert">{fetchError}</p>}
                     </div>
-                    <Button
-                        variant="contained"
-                        className={styles.fetchDataButton}
-                        disabled={isLoading}
-                        onClick={fetchData}
-                        startIcon={isLoading ? <CircularProgress size={17} color="inherit" /> : <FiDownload />}
-                    >
+                    <button type="button" className={styles.fetchDataButton} disabled={isLoading} onClick={fetchData}>
+                        {isLoading ? <span className={styles.spinner} aria-hidden="true" /> : <FiDownload aria-hidden="true" />}
                         {isLoading ? "Loading..." : "Fetch quotes"}
-                    </Button>
+                    </button>
                 </section>
 
                 <section className={styles.quoteSection} aria-live="polite">
